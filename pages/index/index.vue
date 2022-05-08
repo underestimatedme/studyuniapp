@@ -1,9 +1,17 @@
 <template>
 	<view class="container">
-		
-		<view class="intro">本项目已包含uni ui组件，无需import和注册，可直接使用。在代码区键入字母u，即可通过代码助手列出所有可用组件。光标置于组件名称处按F1，即可查看组件文档。</view>
-		<text class="intro">详见：</text>
-		<uni-link :href="href" :text="href"></uni-link>
+		<view class="uni-list">
+			<view class="uni-list-cell" hover-class="uni-list-cell-hover" v-for="(item,index) in news" :key="index"
+			@tap="openinfo()">
+				<view class="uni-media-list">
+					<image class="uni-media-list-logo" :src="item.author_avatar"></image>
+					<view class="uni-media-list-body">
+						<view class="uni-media-list-text-top">{{item.title}}</view>
+						<view class="uni-media-list-text-bottom uni-ellipsis">{{item.created_at}}</view>
+					</view>
+				</view>
+			</view> 
+		</view>
 	</view>
 </template>
 
@@ -11,11 +19,26 @@
 	export default {
 		data() {
 			return {
-				href: 'https://uniapp.dcloud.io/component/README?id=uniui'
+				news : []
 			}
 		},
+		onLoad: function(){
+				uni.request({
+					url: 'https://unidemo.dcloud.net.cn/api/news',
+					method: 'GET',
+					data: {},
+					success: res => {console.log(res); this.news = res.data;},
+					fail: () => {},
+					complete: () => {}
+				});
+		},
 		methods: {
-
+			openinfo(e){
+				var newsid = e.currentTarget.dataset.newsid;
+				uni.navigateTo({
+					url: '../info/info?newsid='+newsid,
+				});	
+			}
 		}
 	}
 </script>

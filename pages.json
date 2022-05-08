@@ -4,7 +4,16 @@
 		"style": {
 			"navigationBarTitleText": "uni-app"
 		}
-	}],
+	}    ,{
+            "path" : "pages/info/info",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "infooo",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
